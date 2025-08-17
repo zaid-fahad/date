@@ -13,10 +13,9 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
     min-height: 100vh;
     color: #fff;
-    overflow: hidden;
+    overflow-x: hidden;
     padding: 20px;
 }
 
@@ -37,8 +36,8 @@ header {
     border-radius: 25px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     backdrop-filter: blur(10px);
-    animation: fadeIn 0.5s ease forwards;
     margin-bottom: 30px;
+    animation: fadeIn 0.5s ease forwards;
 }
 
 .screen.active { display: block; }
@@ -75,15 +74,16 @@ iframe {
 }
 
 .hearts, .confetti {
-    position: absolute;
+    position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
     pointer-events: none;
     overflow: hidden;
+    z-index: 1000;
 }
 
 .heart, .confetto {
     position: absolute;
-    animation: float 3s linear infinite;
+    animation: float 3s linear forwards;
 }
 
 @keyframes float {
@@ -113,3 +113,73 @@ iframe {
 <div class="screen" id="step2">
     <div class="flirty">Pick a day for us 🗓️</div>
     <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdubQZCk-toRdSPbYkuQOqEEwH3QJTDjU36t0CMtfYd25PScQ/viewform?embedded=true">Loading…</iframe>
+    <button onclick="nextStep(3)">Next 💌</button>
+</div>
+
+<!-- Step 3: Pick a Vibe -->
+<div class="screen" id="step3">
+    <div class="flirty">What should our date vibe be? 😍</div>
+    <button onclick="nextStep(4)">Movie Night 🍿</button>
+    <button onclick="nextStep(4)">Coffee ☕</button>
+    <button onclick="nextStep(4)">Park Stroll 🌸</button>
+</div>
+
+<!-- Step 4: Confirmation -->
+<div class="screen" id="step4">
+    <div class="flirty" id="finalMessage">Yay! Can’t wait to see you, Pookie! 💖</div>
+    <div>Pookie points: <span id="points">0</span></div>
+    <div>💌 Click the floating hearts to earn more love! 💌</div>
+</div>
+
+<script>
+let points = 0;
+let heartInterval;
+
+// Step navigation
+function nextStep(step) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('step' + step).classList.add('active');
+
+    if(step >= 2 && !heartInterval) {
+        startHearts();
+    }
+    if(step === 4) {
+        createConfetti();
+    }
+}
+
+// Floating hearts
+function startHearts() {
+    const heartsContainer = document.getElementById('hearts');
+    heartInterval = setInterval(() => {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.style.left = Math.random() * window.innerWidth + 'px';
+        heart.style.fontSize = (10 + Math.random()*20) + 'px';
+        heart.innerText = '💖';
+        heart.onclick = () => {
+            points += 1;
+            document.getElementById('points').innerText = points;
+        };
+        heartsContainer.appendChild(heart);
+        setTimeout(() => heart.remove(), 4000);
+    }, 500);
+}
+
+// Confetti burst
+function createConfetti() {
+    const confettiContainer = document.getElementById('confetti');
+    for(let i=0; i<50; i++){
+        const c = document.createElement('div');
+        c.classList.add('confetto');
+        c.style.left = Math.random() * window.innerWidth + 'px';
+        c.style.top = Math.random() * window.innerHeight + 'px';
+        c.style.fontSize = (10 + Math.random()*15)+'px';
+        c.innerText = '🎉';
+        confettiContainer.appendChild(c);
+        setTimeout(() => c.remove(), 4000 + Math.random()*2000);
+    }
+}
+</script>
+</body>
+</html>
