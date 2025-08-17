@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be Mine 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body {
+    margin: 0;
+    font-family: 'Quicksand', sans-serif;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    color: #fff;
+    overflow: hidden;
+    padding: 20px;
+}
+
+header {
+    font-family: 'Pacifico', cursive;
+    font-size: 3rem;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 5px #ff6f91;
+}
+
+.screen {
+    display: none;
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+    padding: 20px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 25px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    backdrop-filter: blur(10px);
+    animation: fadeIn 0.5s ease forwards;
+    margin-bottom: 30px;
+}
+
+.screen.active { display: block; }
+
+button {
+    padding: 10px 25px;
+    border-radius: 25px;
+    border: none;
+    background: #ff6f91;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin: 10px;
+    transition: transform 0.2s;
+}
+
+button:hover {
+    transform: scale(1.1) rotate(-5deg);
+}
+
+iframe {
+    width: 100%;
+    height: 300px;
+    border-radius: 15px;
+    border: none;
+    margin-bottom: 20px;
+}
+
+.flirty {
+    font-family: 'Pacifico', cursive;
+    font-size: 1.5rem;
+    color: #ff6f91;
+    margin: 10px 0;
+}
+
+.hearts, .confetti {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.heart, .confetto {
+    position: absolute;
+    animation: float 3s linear infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(100vh) scale(1); opacity: 1; }
+    100% { transform: translateY(-10vh) scale(0.5); opacity: 0; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+</style>
+</head>
+<body>
+<header>Be Mine 💖</header>
+
+<div class="hearts" id="hearts"></div>
+<div class="confetti" id="confetti"></div>
+
+<!-- Step 1: Welcome -->
+<div class="screen active" id="step1">
+    <div class="flirty">Hey Pookie! 😘 Wanna set a cute date?</div>
+    <button onclick="nextStep(2)">Yes! 💖</button>
+</div>
+
+<!-- Step 2: Choose Day (Form) -->
+<div class="screen" id="step2">
+    <div class="flirty">Pick a day for us 🗓️</div>
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdubQZCk-toRdSPbYkuQOqEEwH3QJTDjU36t0CMtfYd25PScQ/viewform?embedded=true">Loading…</iframe>
