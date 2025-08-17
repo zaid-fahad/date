@@ -16,7 +16,8 @@ body {
     color: #fff;
     overflow-x: hidden;
     padding: 20px;
-    transition: background 1s;
+    background: linear-gradient(135deg, #ff9acd, #ffb6c1); /* pink gradient */
+    transition: background 0.5s;
 }
 
 header {
@@ -32,7 +33,7 @@ header {
     max-width: 500px;
     width: 100%;
     padding: 20px;
-    background: rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.15);
     border-radius: 25px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     backdrop-filter: blur(10px);
@@ -46,7 +47,7 @@ button {
     padding: 10px 25px;
     border-radius: 25px;
     border: none;
-    background: #ff6f91;
+    background: #ff69b4;
     color: #fff;
     font-size: 1.2rem;
     cursor: pointer;
@@ -59,7 +60,7 @@ button:hover { transform: scale(1.1) rotate(-5deg); }
 .flirty {
     font-family: 'Pacifico', cursive;
     font-size: 1.5rem;
-    color: #ff6f91;
+    color: #ff1493;
     margin: 10px 0;
 }
 
@@ -100,29 +101,29 @@ iframe {
 
 <!-- Step 1: Welcome -->
 <div class="screen active" id="step1">
-    <div class="flirty">Hey Pookie! 🌷 Ready to plan a cute date?</div>
-    <button onclick="nextStep(2)">Yes! 💖</button>
+    <div class="flirty">Hey Cutie! 😘 Ready for some fun?</div>
+    <button onclick="nextStep(2)">Let’s Go! 💕</button>
 </div>
 
 <!-- Step 2: Pick a Vibe -->
 <div class="screen" id="step2">
-    <div class="flirty">Pick a date vibe 🦆</div>
-    <button onclick="chooseVibe('movie')">Movie Night 🍿</button>
-    <button onclick="chooseVibe('coffee')">Coffee ☕</button>
-    <button onclick="chooseVibe('park')">Park Stroll 🌸</button>
+    <div class="flirty">Choose our little adventure 💌</div>
+    <button onclick="chooseVibe('movie')">Popcorn Party 🍿</button>
+    <button onclick="chooseVibe('coffee')">Coffee Cuddles ☕</button>
+    <button onclick="chooseVibe('park')">Flower Walk 🌸</button>
 </div>
 
 <!-- Step 3: Mini Game -->
 <div class="screen" id="step3">
-    <div class="flirty" id="gameTitle">Click the floating items! 💖 <br> mon niye khela </div>
-    <div>Points: <span id="points">0</span></div>
+    <div class="flirty" id="gameTitle">Catch the goodies! 💖</div>
+    <div>Love points: <span id="points">0</span></div>
     <div class="game-area" id="gameArea"></div>
-    <button onclick="nextStep(4)">Done Playing! ❤️</button>
+    <button onclick="nextStep(4)">I’m done! ❤️</button>
 </div>
 
 <!-- Step 4: Google Form -->
 <div class="screen" id="step4">
-    <div class="flirty">Almost there! Set the date here 🗓️</div>
+    <div class="flirty">Almost there, sweetie! Pick our date 🗓️</div>
     <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdubQZCk-toRdSPbYkuQOqEEwH3QJTDjU36t0CMtfYd25PScQ/viewform?embedded=true">Loading…</iframe>
 </div>
 
@@ -138,27 +139,24 @@ function nextStep(step) {
     if(step === 3 && !gameInterval) startGame();
 }
 
-// Choose vibe and theme
+// Choose vibe
 function chooseVibe(selectedVibe){
     vibe = selectedVibe;
     switch(vibe){
         case 'movie':
-            document.body.style.background = 'linear-gradient(135deg, #f6d365, #fda085)';
-            document.getElementById('gameTitle').innerText = "Catch the popcorn! 🍿";
+            document.getElementById('gameTitle').innerText = "Pop those popcorns! 🍿";
             break;
         case 'coffee':
-            document.body.style.background = 'linear-gradient(135deg, #c2e59c, #64b3f4)';
-            document.getElementById('gameTitle').innerText = "Click the coffee cups! ☕";
+            document.getElementById('gameTitle').innerText = "Catch the coffee cups! ☕";
             break;
         case 'park':
-            document.body.style.background = 'linear-gradient(135deg, #a1c4fd, #c2e9fb)';
             document.getElementById('gameTitle').innerText = "Pick the flowers! 🌸";
             break;
     }
     nextStep(3);
 }
 
-// Start mini-game
+// Mini-game
 function startGame(){
     const gameArea = document.getElementById('gameArea');
     gameInterval = setInterval(() => {
