@@ -101,7 +101,7 @@ iframe {
 
 <!-- Step 1: Welcome -->
 <div class="screen active" id="step1">
-    <div class="flirty">Hey Cutie! 😘 Ready for some fun?</div>
+    <div class="flirty">Hey Cutie! 👀 Ready for some fun?</div>
     <button onclick="nextStep(2)">Let’s Go! 💕</button>
 </div>
 
@@ -118,7 +118,7 @@ iframe {
     <div class="flirty" id="gameTitle">Catch the goodies! 💖</div>
     <div>Love points: <span id="points">0</span></div>
     <div class="game-area" id="gameArea"></div>
-    <button onclick="nextStep(4)">I’m done! ❤️</button>
+    <button onclick="nextStep(4)">Mon niye khela done! ❤️</button>
 </div>
 
 <!-- Step 4: Google Form -->
@@ -166,9 +166,9 @@ function startGame(){
         item.style.fontSize = (20 + Math.random()*30) + "px";
 
         switch(vibe){
-            case 'movie': item.innerText = "🍿"; break;
+            case 'movie': item.innerText = "🦆"; break;
             case 'coffee': item.innerText = "☕"; break;
-            case 'park': item.innerText = "🌸"; break;
+            case 'park': item.innerText = "🌹"; break;
         }
 
         item.onclick = () => {
