@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be Mine 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body {
+    margin: 0;
+    font-family: 'Quicksand', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    color: #fff;
+    overflow-x: hidden;
+    padding: 20px;
+    transition: background 1s;
+}
+
+header {
+    font-family: 'Pacifico', cursive;
+    font-size: 3rem;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 5px #ff6f91;
+}
+
+.screen {
+    display: none;
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+    padding: 20px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 25px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    backdrop-filter: blur(10px);
+    margin-bottom: 30px;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.screen.active { display: block; }
+
+button {
+    padding: 10px 25px;
+    border-radius: 25px;
+    border: none;
+    background: #ff6f91;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin: 10px;
+    transition: transform 0.2s;
+}
+
+button:hover { transform: scale(1.1) rotate(-5deg); }
+
+.flirty {
+    font-family: 'Pacifico', cursive;
+    font-size: 1.5rem;
+    color: #ff6f91;
+    margin: 10px 0;
+}
+
+.game-area {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+.game-object {
+    position: absolute;
+    animation: float 3s linear forwards;
+    cursor: pointer;
+}
+
+@keyframes float {
+    0% { transform: translateY(100%); opacity: 1; }
+    100% { transform: translateY(-10%); opacity: 0; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+iframe {
+    width: 100%;
+    height: 350px;
+    border-radius: 15px;
+    border: none;
+}
+</style>
+</head>
+<body>
+<header>Be Mine 💖</header>
+
+<!-- Step 1: Welcome -->
+<div class="screen active" id="step1">
+    <div class="flirty">Hey Pookie! 🌷 Ready to plan a cute date?</div>
+    <button onclick="nextStep(2)">Yes! 💖</button>
+</div>
+
+<!-- Step 2: Pick a Vibe -->
+<div class="screen" id="step2">
+    <div class="flirty">Pick a date vibe 🦆</div>
+    <button onclick="chooseVibe('movie')">Movie Night 🍿</button>
+    <button onclick="chooseVibe('coffee')">Coffee ☕</button>
+    <button onclick="chooseVibe('park')">Park Stroll 🌸</button>
+</div>
+
+<!-- Step 3: Mini Game -->
+<div class="screen" id="step3">
+    <div class="flirty" id="gameTitle">Click the floating items! 💖 <br> mon niye khela </div>
+    <div>Points: <span id="points">0</span></div>
+    <div class="game-area" id="gameArea"></div>
+    <button onclick="nextStep(4)">Done Playing! ❤️</button>
+</div>
+
+<!-- Step 4: Google Form -->
+<div class="screen" id="step4">
+    <div class="flirty">Almost there! Set the date here 🗓️</div>
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdubQZCk-toRdSPbYkuQOqEEwH3QJTDjU36t0CMtfYd25PScQ/viewform?embedded=true">Loading…</iframe>
+</div>
+
+<script>
+let points = 0;
+let gameInterval;
+let vibe = "";
+
+// Navigate steps
+function nextStep(step) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('step' + step).classList.add('active');
+    if(step === 3 && !gameInterval) startGame();
+}
+
+// Choose vibe and theme
+function chooseVibe(selectedVibe){
+    vibe = selectedVibe;
+    switch(vibe){
+        case 'movie':
+            document.body.style.background = 'linear-gradient(135deg, #f6d365, #fda085)';
+            document.getElementById('gameTitle').innerText = "Catch the popcorn! 🍿";
+            break;
+        case 'coffee':
+            document.body.style.background = 'linear-gradient(135deg, #c2e59c, #64b3f4)';
+            document.getElementById('gameTitle').innerText = "Click the coffee cups! ☕";
+            break;
+        case 'park':
+            document.body.style.background = 'linear-gradient(135deg, #a1c4fd, #c2e9fb)';
+            document.getElementById('gameTitle').innerText = "Pick the flowers! 🌸";
+            break;
+    }
+    nextStep(3);
+}
+
+// Start mini-game
+function startGame(){
+    const gameArea = document.getElementById('gameArea');
+    gameInterval = setInterval(() => {
+        const item = document.createElement('div');
+        item.classList.add('game-object');
+        item.style.left = Math.random() * 90 + "%";
+        item.style.fontSize = (20 + Math.random()*30) + "px";
+
+        switch(vibe){
+            case 'movie': item.innerText = "🍿"; break;
+            case 'coffee': item.innerText = "☕"; break;
+            case 'park': item.innerText = "🌸"; break;
+        }
+
+        item.onclick = () => {
+            points++;
+            document.getElementById('points').innerText = points;
+            item.remove();
+        };
+
+        gameArea.appendChild(item);
+        setTimeout(()=> item.remove(), 4000);
+    }, 500);
+}
+</script>
+</body>
+</html>
